@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Navigator"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "03ec9af2-3fd5-4545-9b51-520eb0e2f07c"
+  }
+}

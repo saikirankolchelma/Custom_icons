@@ -1,0 +1,87 @@
+ Tableau to Power BI Icon Migration Workflow
+Goal: Extract image zones (icons, buttons, charts, etc.) from Tableau .twbx files, map them correctly to dashboards, and generate Power BI-compatible layout metadata and assets.
+
+📁 Workflow Components
+File	Description
+a1_twbx_parser.py	Unpacks .twbx files and extracts .twb XML + image assets.
+icon_dimension.py	Parses the .twb, identifies image zones, matches them to dashboards, resolves image paths, and writes zone metadata.
+icon_generation.py	Consumes processed image zone data and assets to generate Power BI layouts and final image resources.
+
+🔄 Step-by-Step Workflow Analysis
+✅ Step 1: TWBX Unpacking & XML Parsing (a1_twbx_parser.py)
+Purpose: Unpack .twbx and extract .twb, image assets, and metadata.
+
+Status: ✅ Working as expected.
+
+Output:
+
+Extracted .twb file.
+
+Extracted image assets.
+
+Saved under:
+output/input_tableau_output/
+
+✅ Command:
+python a1_twbx_parser.py
+It will prompt you to input a .twbx file path.
+
+Example input: C:\Users\...\Web Traffic Dashboard Digital Marketing VOTD.twbx
+
+⚠️ Step 2: Image Zone Extraction & Mapping (icon_dimension.py)
+Purpose: Parse the .twb XML and map images to dashboards and zones.
+
+✅ Working:
+.twb is parsed and some metadata extracted.
+
+❌ Issues:
+Images are always assigned to "Unknown Dashboard".
+
+"tableau_zones" is empty (image zone data not extracted properly).
+
+No fallback search for matching images in the output folder.
+
+Hardcoded/fallback dimension values (not accurate).
+
+No debug logging available for tracing asset path or mapping failures.
+
+⚠️ Command:
+
+python "C:\Users\ksaik\OneDrive\Desktop\icon_migration - Copy (2)\icons\icons\icons\icon_dimension.py" "C:\Users\ksaik\OneDrive\Desktop\icon_migration - Copy (2)\output\input_tableau_output\Web Traffic Dashboard  Digital Marketing  VOTD.twb"
+Output:
+
+A processed .json file saved to:
+output/input_tableau_output/processed/
+
+⚠️ Step 3: Power BI Layout & Asset Generation (icon_generation.py)
+Purpose: Generate final Power BI layout and copy images to Navigator folder.
+
+✅ Working:
+Icons are copied to the Navigator structure.
+
+Power BI-compatible layout JSON is generated.
+
+❌ Issues:
+Output relies on accurate metadata from Step 2 (which is currently incomplete).
+
+Missing dashboard IDs and image positions lead to incomplete Power BI reports.
+
+⚠️ Command:
+
+python "C:\Users\ksaik\OneDrive\Desktop\icon_migration - Copy (2)\icons\icons\icons\icon_generation.py" "C:\Users\ksaik\OneDrive\Desktop\icon_migration - Copy (2)\output\input_tableau_output\processed" "C:\Users\ksaik\OneDrive\Desktop\icon_migration - Copy (2)\output\input_tableau_output\Image"
+Output:
+
+Icons and layout data are pushed to:
+C:\Users\ksaik\OneDrive\Desktop\icon_migration - Copy (2)\icons\icons\icons\Navigator\Navigator.Report\StaticResources\RegisteredResources
+
+
+
+
+
+echo "# custom_icon_migration_tableaut_to_power_bi" >> README.md
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/saikirankolchelma/custom_icon_migration_tableaut_to_power_bi.git
+git push -u origin main
